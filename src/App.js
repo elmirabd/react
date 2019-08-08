@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+//components
+import Notes from './Components/Notes';
+import TextArea from './Components/TextArea';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const Container = styled.div`
+  padding: 20px;
+  background-color: #d7d7d7;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+
+function App(props) {
+    const [data, setData] = useState([]);
+
+    function getDataBack(values) {
+        setData([...data, values])
+    }
+
+    console.log(data)
+
+    return (
+        <Container>
+
+            <TextArea getDataBack={getDataBack} />
+
+            <Notes data={data} />
+
+        </Container>
+    );
 }
 
 export default App;
+
+
