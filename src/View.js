@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+//actions
+import { getPosts } from './Redux/actions/posts';
 
 
 const Container = styled.div`
@@ -15,14 +18,32 @@ const Container = styled.div`
   width: 300px;
 `;
 
-function View() {
+function View(props) {
+
+    useEffect(() => {
+        props.getPosts();
+    }, []);
 
     return (
         <Container>
             View
             <Link to="/">Home</Link>
+
+            {
+                props.posts.slice(0, 10).map((post, i) =>
+                    <div key={i}>
+                        { post.title }
+                    </div>
+                )
+            }
         </Container>
     );
 }
 
-export default View;
+function mapStateToProps(state) {
+    return {
+        posts: state.posts
+    }
+}
+
+export default connect(mapStateToProps, { getPosts })(View)

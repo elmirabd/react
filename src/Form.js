@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 const Container = styled.div`
   padding: 10px;
@@ -18,46 +19,12 @@ const Container = styled.div`
   }
 `;
 
-function Form({ getDataFromForm }) {
-    const [data, setData] = useState({
-        name: "",
-        age: ""
-    });
+function Form(props) {
 
-    const nameInput = useRef(null);
-
-    useEffect(() => {
-
-        const a = setInterval(() => { console.log('interval') }, 1000)
-
-        return () => {
-            clearInterval(a)
-        }
-    }, [data]);
-
-    function _onChange(e) {
-        setData({ ...data, [e.target.name]: e.target.value })
-    }
-
-    function _onClick(e, val) {
-        // console.log(data);
-        getDataFromForm(data);
-    }
-
-
+    console.log(props.users)
 
     return (
         <Container>
-
-            <input type="text" name="name" value={data.name} onChange={_onChange} ref={nameInput} />
-
-            <input type="text" name="age" value={data.age} onChange={_onChange} />
-
-            <button type="button" onClick={_onClick}>
-                Send
-            </button>
-
-            <br />
 
             <Link to="/view">View</Link>
 
@@ -65,4 +32,10 @@ function Form({ getDataFromForm }) {
     );
 }
 
-export default Form;
+function mapStateToProps(state) {
+    return {
+        users: state.users
+    }
+}
+
+export default connect(mapStateToProps)(Form);
