@@ -1,15 +1,16 @@
 import axios from 'axios';
-import { GET_ALL_USERS, DELETE_USER } from '../types';
+import { USER_ENTER, USER_REGISTER } from '../types';
 
 // action
-export const getUsers = (id) => (dispatch) => {
-    return axios.get(`https://jsonplaceholder.typicode.com/users`).then(res => {
-      dispatch(getUsersDispatch(res.data))
+export const register = (data) => (dispatch) => {
+    return axios.post(`/api/enter`, { data }).then(res => {
+      localStorage.user = res.data.user.token;
+      dispatch(registerDispatch(res.data.user))
     })
 };
 
 //action dispatch
-export const  getUsersDispatch = (users) => ({
-    type: GET_ALL_USERS,
-    users: users
+export const  registerDispatch = (user) => ({
+    type: USER_REGISTER,
+    user
 });

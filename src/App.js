@@ -4,10 +4,13 @@ import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import axios from 'axios';
 //components
-import Form from './Form';
-import View from './View';
-//actions
-import { getUsers } from './Redux/actions/users';
+import Form from './Components/Form';
+import View from './Components/View';
+import Auth from './Components/Auth';
+import UserOn from './Components/UserOn';
+import UserOff from './Components/UserOff';
+// actions
+// import { getUsers } from './Redux/actions/users';
 
 const Container = styled.div`
   padding: 20px;
@@ -21,21 +24,16 @@ const Container = styled.div`
 
 function App(props) {
 
-    useEffect(() => {
-        props.getUsers();
-    }, [])
-
     return (
         <Container>
-
-            <Route exact path="/" component={Form} />
-            <Route exact path="/view" component={View} />
-
+            <UserOff exact path="/" component={Auth} />
+            <UserOn exact path="/form" component={Form} />
+            <UserOn exact path="/view" component={View} />
         </Container>
     );
 }
 
 
-export default connect(null, { getUsers })(App);
+export default connect(null)(App);
 
 

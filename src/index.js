@@ -5,13 +5,25 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { BrowserRouter, Route } from 'react-router-dom';
+import decode from 'jwt-decode';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 //root reducer
 import { rootReducer } from './Redux/reducers/rootReducer.js';
+//actions
+import { registerDispatch } from './Redux/actions/users'
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+
+if (localStorage.user) {
+    const user = decode(localStorage.user);
+    const data = {
+        email: user.email,
+        id: user.id
+    };
+    store.dispatch(registerDispatch(data))
+}
 
 ReactDOM.render(
 

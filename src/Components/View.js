@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 //actions
-import { getPosts } from './Redux/actions/posts';
+import { getPosts } from '../Redux/actions/posts';
 
 
 const Container = styled.div`
