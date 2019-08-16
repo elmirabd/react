@@ -12,7 +12,7 @@ import * as serviceWorker from './serviceWorker';
 //root reducer
 import { rootReducer } from './Redux/reducers/rootReducer.js';
 //actions
-import { registerDispatch } from './Redux/actions/users'
+import { registerDispatch } from './Redux/actions/users';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 

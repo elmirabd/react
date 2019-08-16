@@ -3,7 +3,7 @@ import styled from "styled-components";
 import validator from 'validator';
 import { connect } from 'react-redux';
 // actions
-import { register } from '../Redux/actions/users';
+import { register, enter } from '../Redux/actions/users';
 
 
 const Container = styled.div`
@@ -14,8 +14,16 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 700px;
-  width: 700px;
+  height: calc(100vh - 50px);
+  width: 75%;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.35);
+  
+  .logo-wrap {
+    img {
+      width: 500px;
+    }
+  }
   
   .form {
     display: flex;
@@ -24,9 +32,30 @@ const Container = styled.div`
       margin: 10px 0;
       display: flex;
       flex-direction: column;
+      span {
+        margin-bottom: 5px;
+      }
+      input {
+        padding: 10px;
+        outline: none;
+        width: 300px;
+        border: 1px solid ${props => Object.keys(props.error).length !== 0 ? "tomato" : "silver"};
+      }
     }
-    button {
-      margin: 10px 0;
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+        button {
+          margin: 10px 0;
+          padding: 10px;
+          outline: none;
+          border: 1px solid silver;
+          background-color: #0a3d62;
+          color: white;
+          cursor: pointer;
+          &:first-child { width: 200px; }  
+          &:last-child { width: 95px; } 
+        }
     }
   }
 `;
@@ -43,19 +72,23 @@ function Auth(props) {
         setData({ ...data, [e.target.name]: e.target.value })
     }
 
-    async function _onClick() {
+    async function _onClick(type) {
       const allErrors = validate(data);
+      setErrors(allErrors);
 
       try {
 
           if (Object.keys(allErrors).length === 0) {
               //api request
-              console.log(data)
-              await props.register(data);
+              if (type === "signup") {
+                  await props.register(data);
+              } else {
+                  await props.enter(data);
+              }
           }
 
       } catch(err) {
-          console.log(err)
+          setErrors({ enter: err.response.data.errors.global })
       }
 
     }
@@ -70,7 +103,11 @@ function Auth(props) {
     }
 
     return (
-        <Container>
+        <Container error={errors}>
+
+            <div className="logo-wrap">
+                <img src={require("../Media/chatlogo.jpg")} alt="chat-logo" />
+            </div>
 
             <div className="form">
                 <label htmlFor="email">
@@ -83,13 +120,19 @@ function Auth(props) {
                     <input type="password" name="pass" value={data.pass} onChange={_onChange} id="password" />
                 </label>
 
-                <button type="button" onClick={_onClick}>
-                    SIGN IN
-                </button>
+                <div className="buttons">
+                    <button type="button" onClick={() => _onClick("signin")}>
+                        SIGN IN
+                    </button>
+
+                    <button type="button" onClick={() => _onClick("signup")}>
+                        SIGN UP
+                    </button>
+                </div>
             </div>
 
         </Container>
     );
 }
 
-export default connect(null, { register })(Auth);
+export default connect(null, { register, enter })(Auth);

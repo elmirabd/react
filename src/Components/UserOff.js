@@ -8,7 +8,7 @@ function UserOff(props) {
     if (Object.keys(props.user).length !== 0) {
 
         return(
-            <Redirect to="/form" />
+            <Redirect to="/chat" />
         )
     }
 
