@@ -5,7 +5,11 @@ const Container = styled.div`
   
 `;
 
-function ChatHeader({ user }) {
+function ChatHeader({ user, text }) {
+
+    console.log(user);
+    console.log(text);
+
     return (
         <Container>
 

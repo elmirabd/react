@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
-import axios from 'axios';
 //components
 import Chat from './Components/Chat';
 import Auth from './Components/Auth';
 import UserOn from './Components/UserOn';
 import UserOff from './Components/UserOff';
-// actions
-// import { getUsers } from './Redux/actions/users';
 
 const Container = styled.div`
   padding: 50px;
@@ -25,13 +20,13 @@ function App(props) {
 
     return (
         <Container>
-            <UserOff exact path="/" component={Auth} />
-            <UserOn exact path="/chat" component={Chat} />
+            <UserOff location={props.location} exact path="/" component={Auth} />
+            <UserOn location={props.location} exact path="/chat" component={Chat} />
         </Container>
     );
 }
 
 
-export default connect(null)(App);
+export default App;
 
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 //components
 import ChatHeader from './ChatComponents/ChatHeader';
-import ChatBody from './ChatComponents/ChatHeader';
+import ChatBody from './ChatComponents/ChatBody';
 import ChatFooter from './ChatComponents/ChatFooter';
 
 const Container = styled.div`
@@ -21,23 +21,20 @@ const Container = styled.div`
 `;
 
 function Chat({ user }) {
-    const [me, setMe] = useState({});
+    // const [me, setMe] = useState({});
+    //
+    // useEffect(() => {
+    //     setMe(user);
+    // }, [user]);
 
-    useEffect(() => {
-        console.log(user)
-        setMe(me);
-    }, [user]);
-
-    console.log(me)
-
-    if (Object.keys(me).length === 0) return (
+    if (Object.keys(user).length === 0) return (
         <Container>Loading...</Container>
     );
 
     return (
         <Container>
 
-            <ChatHeader user={me} />
+            <ChatHeader user={user} />
 
             <ChatBody />
 

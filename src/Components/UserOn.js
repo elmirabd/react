@@ -1,18 +1,15 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
 
-
-function UserOn(props) {
-
-    if (Object.keys(props.user).length !== 0) {
-        return(
-            <Route {...props} component={props.component} />
-        )
-    }
-
-    return <Redirect to="/" />;
-}
+const UserOn = ({ user, component: Component, ...rest }) => {
+    return(
+        <Route
+            { ...rest }
+            render={ props => user.email ? <Component {...props} /> : <Redirect to="/" /> }
+        />
+    );
+};
 
 function mapStateToProps(state) {
     return {
@@ -20,4 +17,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(UserOn)
+export default connect(mapStateToProps)(UserOn);

@@ -88,7 +88,7 @@ function Auth(props) {
           }
 
       } catch(err) {
-          setErrors({ enter: err.response.data.errors.global })
+          // setErrors({ enter: err.response.data.errors.global })
       }
 
     }

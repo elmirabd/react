@@ -1,19 +1,15 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
 
-
-function UserOff(props) {
-
-    if (Object.keys(props.user).length !== 0) {
-
-        return(
-            <Redirect to="/chat" />
-        )
-    }
-
-    return <Route {...props} component={props.component} />;
-}
+const UserOff = ({ user, component: Component, ...rest }) => {
+    return (
+        <Route
+            { ...rest }
+            render={ props => !user.email ? <Component {...props} /> : <Redirect to="/chat" /> }
+        />
+    )
+};
 
 function mapStateToProps(state) {
     return {
@@ -21,4 +17,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(UserOff)
+export default connect(mapStateToProps)(UserOff);
