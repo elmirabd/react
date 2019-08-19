@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { withRouter } from 'react-router-dom';
 
 const Container = styled.div`
-  
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  span {
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid silver;
+  }
 `;
 
-function ChatHeader({ user, text }) {
+function ChatHeader({ user, getRouterBack }) {
 
-    console.log(user);
-    console.log(text);
+    function _onLogout() {
+        localStorage.removeItem("user");
+        getRouterBack();
+    }
 
     return (
         <Container>
@@ -17,10 +28,14 @@ function ChatHeader({ user, text }) {
                Welcome { user.email }
             </div>
 
+            <div className="logout">
+                <span onClick={_onLogout}>Logout</span>
+            </div>
+
         </Container>
     );
 }
 
-export default ChatHeader;
+export default withRouter(ChatHeader);
 
 
