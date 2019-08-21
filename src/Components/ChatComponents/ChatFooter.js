@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const Container = styled.div`
    width: 100%;
+   padding-top: 35px;
   .inp {
     width: 100%;
     position: relative;
@@ -23,23 +24,47 @@ const Container = styled.div`
   }
 `;
 
-function ChatFooter({ socket }) {
+function ChatFooter({ socket, user }) {
+    const [typingList, setTypingList] = useState([]);
     const [text, setText] = useState({
         text: ""
     });
 
+    useEffect(() => {
+        socket.on("typing", arrayOfUsers => {
+            setTypingList(arrayOfUsers);
+        })
+    }, []);
+
     function _onChange(e) {
-        setText({ text: e.target.value })
+        setText({ text: e.target.value });
+        socket.emit("typing", {
+            email: user.email, text: text.text
+        })
     }
 
     function _onSend() {
-        socket.emit("msg", text)
+        if (text.text === "") {
+            return false;
+        }
+        const data = {
+            message: text,
+            user: user
+        };
+        socket.emit("msg", data);
+        setText({ text: "" })
     }
 
     return (
         <Container>
+            <div>
+                {
+                    typingList.length !== 0 &&
+                    (typingList.length > 1 ? <p>Users are typing...</p> : <p>{typingList[0]} is typing</p>)
+                }
+            </div>
             <div className="inp">
-                <input type="text" placeholder="Text daxil edin..." onChange={_onChange} value={text.text} />
+                <input type="text" placeholder="Text daxil edin..." value={text.text} onChange={_onChange} />
                 <button type="button" onClick={_onSend}>SEND</button>
             </div>
         </Container>

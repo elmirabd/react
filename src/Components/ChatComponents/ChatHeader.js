@@ -6,7 +6,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 10px 10px 30px 10px;
   span {
     padding: 5px 10px;
     cursor: pointer;

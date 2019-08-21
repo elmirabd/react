@@ -46,9 +46,9 @@ function Chat(props) {
 
             <ChatHeader user={props.user} getRouterBack={getRouterBack} />
 
-            <ChatBody socket={socket} />
+            <ChatBody socket={socket} user={props.user} />
 
-            <ChatFooter socket={socket} />
+            <ChatFooter socket={socket} user={props.user} />
 
         </Container>
     );
