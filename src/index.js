@@ -14,6 +14,11 @@ import { rootReducer } from './Redux/reducers/rootReducer.js';
 //actions
 import { registerDispatch } from './Redux/actions/users';
 
+//css
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
+
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 if (localStorage.user) {

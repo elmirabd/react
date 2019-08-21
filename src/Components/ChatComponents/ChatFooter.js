@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -60,7 +60,8 @@ function ChatFooter({ socket, user }) {
             <div>
                 {
                     typingList.length !== 0 &&
-                    (typingList.length > 1 ? <p>Users are typing...</p> : <p>{typingList[0]} is typing</p>)
+                    (typingList.length > 1 ? <Fragment><p>Users are typing...</p></Fragment> :
+                        <p>{typingList[0]} is typing</p>)
                 }
             </div>
             <div className="inp">
