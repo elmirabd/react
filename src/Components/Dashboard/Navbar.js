@@ -3,10 +3,18 @@ import styled from 'styled-components';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline,
     MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem
 } from "mdbreact";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const NavbarWrapper = styled.div`
   min-width: 100%;
+  button#logout-btn {
+    padding: 5px 10px;
+    border: 1px solid pink;
+    background-color: white;
+    color: tomato;
+    outline: none;
+    border-radius: 10px;
+  }
 `;
 
 function Navbar(props) {
@@ -14,6 +22,10 @@ function Navbar(props) {
 
     function toggleCollapse() {
         setIsOpen(!isOpen);
+    }
+
+    function _onLogout() {
+        console.log('aaa')
     }
 
     return (
@@ -40,19 +52,19 @@ function Navbar(props) {
                                     <span className="mr-2">Dropdown</span>
                                 </MDBDropdownToggle>
                                 <MDBDropdownMenu>
-                                    <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                                    <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
-                                    <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                                    <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
+                                    <Link to="/">Dashboard</Link>
+                                    <Link to="/dashboard/customers">Customers</Link>
                                 </MDBDropdownMenu>
                             </MDBDropdown>
                         </MDBNavItem>
                     </MDBNavbarNav>
                     <MDBNavbarNav right>
                         <MDBNavItem>
-                            <MDBFormInline waves>
+                            <MDBFormInline>
                                 <div className="md-form my-0">
-                                    <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                                    <button type="button" onClick={_onLogout} id="logout-btn">
+                                        Logout
+                                    </button>
                                 </div>
                             </MDBFormInline>
                         </MDBNavItem>

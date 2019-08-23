@@ -6,7 +6,7 @@ const UserOff = ({ user, component: Component, ...rest }) => {
     return (
         <Route
             { ...rest }
-            render={ props => !user.email ? <Component {...props} /> : <Redirect to="/chat" /> }
+            render={ props => !user.email ? <Component {...props} /> : <Redirect to="/dashboard" /> }
         />
     )
 };

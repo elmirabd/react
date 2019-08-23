@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+import moment from 'moment';
 
-const Container = styled.div`
+export const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -15,6 +16,16 @@ const Container = styled.div`
 `;
 
 function ChatHeader({ user, getRouterBack }) {
+    const [date, setDate] = useState(0);
+
+    useEffect(() => {
+
+        const timer = setInterval(() => {
+            setDate(new Date().getTime())
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);
 
     function _onLogout() {
         localStorage.removeItem("user");
@@ -24,8 +35,10 @@ function ChatHeader({ user, getRouterBack }) {
     return (
         <Container>
 
-            <div className="header">
+            <div className="header" >
                Welcome { user.email }
+                { moment(date).format('h:mm:ss a') }
+                <a href="https://youtube.com" target="_blank">link</a>
             </div>
 
             <div className="logout">

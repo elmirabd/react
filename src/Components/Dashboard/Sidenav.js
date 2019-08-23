@@ -9,7 +9,7 @@ const SidenavWrapper = styled.div`
   top: 0;
   left: 0;
   z-index: 1031 !important;
-  background-color: #4b7bec;
+  background-color: #778ca3;
 `;
 
 function Sidenav(props) {
