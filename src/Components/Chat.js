@@ -8,7 +8,7 @@ import ChatHeader from './ChatComponents/ChatHeader';
 import ChatBody from './ChatComponents/ChatBody';
 import ChatFooter from './ChatComponents/ChatFooter';
 
-let socket = socketClient("http://localhost:4044");
+let socket = socketClient("http://192.168.1.105:4044");
 
 const Container = styled.div`
   padding: 10px;

@@ -1,10 +1,10 @@
-import { USER_REGISTER } from '../types';
+import { GET_USERS } from '../types';
 
-export default function users(state = {}, action = {}) {
+export default function users(state = [], action = {}) {
 
     switch (action.type) {
-        case USER_REGISTER: {
-            return action.user
+        case GET_USERS: {
+            return action.users
         }
         default:
             return state;

@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Route } from 'react-router-dom';
+import NewsDetail from './Components/News/newsDetail';
+ import Form from './Components/News/Form';
+import newsDetail from './Components/News/newsDetail';
+import newsSingle from './Components/News/NewsSIngle';
+import { Route ,Switch} from 'react-router-dom';
+
 //components
 import Chat from './Components/Chat';
 import Auth from './Components/Auth';
@@ -11,12 +16,7 @@ import Navbar from './Components/Dashboard/Navbar';
 import Sidenav from './Components/Dashboard/Sidenav';
 
 const Container = styled.div`
-  background-color: #d7d7d7;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+ 
 `;
 
 const Content = styled.div`
@@ -35,18 +35,16 @@ function App(props) {
     return (
         <Container>
 
-        {/*<Left>*/}
-        {/*    <Sidenav />*/}
-        {/*</Left>*/}
-
-        <Content>
-            <Navbar />
-            <Route location={props.location} exact path="/" component={Dashboard} />
-        </Content>
 
 
-            {/*<UserOff location={props.location} exact path="/" component={Auth} />*/}
-            {/*<UserOn location={props.location} exact path="/chat" component={Chat} />*/}
+  <Route exact path="/form" component={Form} />
+   <Switch>
+
+
+       <Route exact  path="/news" component={newsSingle} />
+       <Route  path="/news/:id" component={newsDetail} />
+   </Switch>
+
 
         </Container>
     );

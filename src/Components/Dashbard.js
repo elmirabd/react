@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+ import {users} from '../Redux/actions/users';
+  import {connect} from 'react-redux'
 // components
 import OwnCard from './Dashboard/OwnCard';
 import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
+
 
 
 
@@ -24,49 +27,59 @@ const HeaderPanel = styled.div`
   }
 `;
 
+
 function Dashbard(props) {
+    function _getData(){
+     props.users();
+console.log(props.userList);
+    }
     return (
         <Wrapper>
             {/*<OwnCard />*/}
 
             <HeaderPanel>
-                <button type="button">Get Data</button>
+                <button type="button" onClick={_getData}>Get Data</button>
             </HeaderPanel>
 
             <div className="own-table">
                 <MDBTable>
                     <MDBTableHead>
                         <tr>
-                            <th>#</th>
-                            <th>First</th>
-                            <th>Last</th>
-                            <th>Handle</th>
+                            <th>id</th>
+                            <th>name</th>
+                            <th>username</th>
+                            <th>email</th>
                         </tr>
                     </MDBTableHead>
                     <MDBTableBody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                        {
+                            props.userList.map((user,i)=>{
+                                 return (
+                                <tr>
+                                    <td>{user.id}</td>
+                                    <td>{user.name}</td>
+                                    <td>{user.username}</td>
+                                    <td>{user.email}</td>
+                                  
+                                </tr>
+                                 )
+                        })
+                        }
+
+
+
+
                     </MDBTableBody>
                 </MDBTable>
             </div>
         </Wrapper>
     );
 }
+  function mapStateToProps(state) {
+    return {
+        userList:state.users
+    }
 
-export default Dashbard;
+  }
+
+export default connect(mapStateToProps,{users})(Dashbard);
