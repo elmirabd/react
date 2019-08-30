@@ -37,10 +37,9 @@ function App(props) {
 
 
 
-  <Route exact path="/form" component={Form} />
+     <Route exact path="/" component={Form} />
+
    <Switch>
-
-
        <Route exact  path="/news" component={newsSingle} />
        <Route  path="/news/:id" component={newsDetail} />
    </Switch>

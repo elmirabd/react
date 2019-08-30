@@ -1,8 +1,10 @@
 import React, {useState,useEffect} from "react";
- import styled from 'styled-components';
+import styled from 'styled-components';
 import axios from 'axios';
- import {Link} from 'react-router-dom'
-   const Container=styled.div`
+import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+
+const Container=styled.div`
    margin:40px;
    .imgH {
    display: block;
@@ -32,11 +34,8 @@ import axios from 'axios';
 
          })
          useEffect(() => {
-                 const {id} = props.match.params;
-              axios.get(`/api/get-article/${id}`).then(res => {
-                  setData(res.data.article)
-              });
-
+            const {id} = props.match.params;
+            setData(props.news.filter(n => n._id === id)[0])
 
          } ,[])
 console.log(data);
@@ -57,4 +56,11 @@ console.log(data);
 
           )
     }
-     export default  NewsDetail;
+
+    function mapStateToProps(state){
+        return{
+            news: state.news
+        }
+    }
+
+export default connect(mapStateToProps)(NewsDetail);

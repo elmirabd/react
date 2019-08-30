@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import validator from "validator";
 import axios from 'axios';
-
-
+import {connect} from 'react-redux';
+import {postNews} from '../../Redux/actions/news'
 //components
 
 const Container = styled.div`
@@ -43,11 +43,8 @@ function Form(props) {
         setErrors(allErrors);
 
         if(Object.keys(allErrors).length == 0){
-            console.log('s');
-            await  axios.post("/api/add-article", { data })
-        .then(res => {
-                console.log(res.data);
-            })
+            console.log(data);
+            await  props.postNews(data);
         }
     }
 
@@ -74,6 +71,8 @@ function Form(props) {
                         <textarea className="form-control" onChange={_onChange}  id="exampleFormControlTextarea1" rows="3" name={"content"}></textarea>
                     </div>
                     <button type="submit" className="btn btn-primary" onClick={_onClick}>Create</button>
+
+                    <Link to="/news" >News Page</Link>
                 </div>
             </div>
 
@@ -82,4 +81,4 @@ function Form(props) {
 }
 
 
-export default Form;
+export default connect(null, {postNews})(Form);
